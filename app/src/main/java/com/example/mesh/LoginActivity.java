@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mesh.Model.Users;
+import com.example.mesh.Prevalent.Prevalent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import io.paperdb.Paper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private String parentDbName = "Users";
 
+    private CheckBox RememberMeCheckBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         LoginButton =(Button) findViewById(R.id.login_btn);
         InputPassword = (EditText) findViewById(R.id.login_password_input);
         InputPhoneNumber =(EditText) findViewById(R.id.login_phone_number_input);
+
+        RememberMeCheckBox = (CheckBox) findViewById(R.id.remember_me_checkBox);
+        Paper.init(this);
 
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +79,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void AllowAccessToAccount(final String Phone, final String Password) {
 
+        if (RememberMeCheckBox.isChecked()) { //Check is RememberMeBox is click or not
+            Paper.book().write(Prevalent.UserPhoneKey, Phone);
+            Paper.book().write(Prevalent.UserPasswordKey, Password);
+
+        }
+
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -82,17 +97,24 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(usersData.getPhone().equals(Phone)){//Validate phone number and password
                         if(usersData.getPassword().equals(Password)){
-                            Toast.makeText(LoginActivity.this, "Logged Sucessfully!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Logged Successfully!", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
 
                             Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Password is Incorrect!", Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
                         }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Phone number is Incorrect!", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
                     }
 
                 }else{
                     Toast.makeText(LoginActivity.this, "Account with this"+Phone+"number do not exists!", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
+
                 }
             }
 

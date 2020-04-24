@@ -15,6 +15,19 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
         android:src="@drawable/app_logo" />
+
+    <!--Ads-->
+    <!--<com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="220dp"
+        android:layout_height="88dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="302dp"
+        android:layout_marginBottom="269dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-5620654488810864/9428613635" />-->
     <!--Join Now button-->
     <Button
         android:id="@+id/join_now_btn"
