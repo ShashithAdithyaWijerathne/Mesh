@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mesh.Model.Users;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText InputPhoneNumber,InputPassword;
     private Button LoginButton;
     private ProgressDialog loadingBar;
+    private TextView AdminLink, NotAdminLink;
 
     private String parentDbName = "Users";
 
@@ -42,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
         InputPassword = (EditText) findViewById(R.id.login_password_input);
         InputPhoneNumber =(EditText) findViewById(R.id.login_phone_number_input);
 
+        AdminLink = (TextView) findViewById(R.id.admin_panel_link);
+        NotAdminLink = (TextView) findViewById(R.id.not_admin_panel_link);
+
         RememberMeCheckBox = (CheckBox) findViewById(R.id.remember_me_checkBox);
         Paper.init(this);
 
@@ -49,6 +54,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginUser();
+            }
+        });
+
+        AdminLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//If user click I am Admin, Then👇
+                LoginButton.setText("Admin Login");//Login button will change as Admin Login
+                AdminLink.setVisibility(View.INVISIBLE);//Link will be disappear
+                NotAdminLink.setVisibility(View.VISIBLE);//I am not admin link will be visible
+                parentDbName = "Admins";
+
+            }
+        });
+
+        NotAdminLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//If user click I am Admin by mistakenly, Then👇
+                LoginButton.setText("Login");//Admin Login button will change as  Login
+                AdminLink.setVisibility(View.VISIBLE);//Link will be visible
+                NotAdminLink.setVisibility(View.INVISIBLE);//I am not admin link will be disappear
+                parentDbName = "Users";
+
             }
         });
     }
@@ -97,11 +124,22 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(usersData.getPhone().equals(Phone)){//Validate phone number and password
                         if(usersData.getPassword().equals(Password)){
-                            Toast.makeText(LoginActivity.this, "Logged Successfully!", Toast.LENGTH_SHORT).show();
-                            loadingBar.dismiss();
 
-                            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                            startActivity(intent);
+                            if (parentDbName.equals("Admins")) {
+
+                                Toast.makeText(LoginActivity.this, "Welcome Admin,You are logged Successfully!", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();
+
+                                Intent intent = new Intent(LoginActivity.this, AdminAddNewProductActivity.class);
+                                startActivity(intent);
+                            } else if (parentDbName.equals("Users")) {
+
+                                Toast.makeText(LoginActivity.this, "Logged Successfully!", Toast.LENGTH_SHORT).show();
+                                loadingBar.dismiss();
+
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                            }
                         } else {
                             Toast.makeText(LoginActivity.this, "Password is Incorrect!", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
