@@ -21,17 +21,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
 
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-//import com.google.android.gms.ads.MobileAds;
-//import com.google.android.gms.ads.initialization.InitializationStatus;
-//import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button JoinNowButton, LoginButton;
     private ProgressDialog loadingBar;
-    //private AdView mAdView;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         //Admob ads banner
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        */
+
         //RememberMeCheckBox
         String UserPhoneKey = Paper.book().read(Prevalent.UserPhoneKey);
         String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);

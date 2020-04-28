@@ -5,4 +5,5 @@
     <item name="nav_categories" type="id" />
     <item name="nav_settings" type="id" />
     <item name="nav_logout" type="id" />
+    <item name="adView" type="id" />
 </resources>

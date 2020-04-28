@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            type = getIntent().getExtras().get("Admin").toString();
+            type = getIntent().getExtras().get("com/example/mesh/Admin").toString();
         }
 
 
@@ -66,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!type.equals("Admin")) {
+                if (!type.equals("com/example/mesh/Admin")) {
                     Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                     startActivity(intent);
                 }
@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
 
-        if (!type.equals("Admin")) {
+        if (!type.equals("com/example/mesh/Admin")) {
             userNameTextView.setText(Prevalent.currentOnlineUser.getName());
             Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
         }
@@ -124,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (type.equals("Admin")) {
+                                if (type.equals("com/example/mesh/Admin")) {
                                     Intent intent = new Intent(HomeActivity.this, AdminMaintainProductsActivity.class);
                                     intent.putExtra("pid", model.getPid());
                                     startActivity(intent);
@@ -188,24 +188,24 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.nav_cart) {
-            if (!type.equals("Admin")) {
+            if (!type.equals("com/example/mesh/Admin")) {
                 Intent intent = new Intent(HomeActivity.this, CartActivity.class);
                 startActivity(intent);
             }
         } else if (id == R.id.nav_search) {
-            if (!type.equals("Admin")) {
+            if (!type.equals("com/example/mesh/Admin")) {
                 Intent intent = new Intent(HomeActivity.this, SearchProductsActivity.class);
                 startActivity(intent);
             }
         } else if (id == R.id.nav_categories) {
 
         } else if (id == R.id.nav_settings) {
-            if (!type.equals("Admin")) {
+            if (!type.equals("com/example/mesh/Admin")) {
                 Intent intent = new Intent(HomeActivity.this, SettinsActivity.class);
                 startActivity(intent);
             }
         } else if (id == R.id.nav_logout) {
-            if (!type.equals("Admin")) {
+            if (!type.equals("com/example/mesh/Admin")) {
                 Paper.book().destroy();
 
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
