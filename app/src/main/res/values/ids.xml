@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="user_profile_image" type="id" />
+    <item name="nav_cart" type="id" />
+    <item name="nav_categories" type="id" />
+    <item name="nav_settings" type="id" />
+    <item name="nav_logout" type="id" />
+</resources>
